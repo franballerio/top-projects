@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div>
+        <h1>Calculator</h1>
+        <div id="display">0</div>
+    </div>
+    <div id="buttons">
+        <button id="btn" onclick="numberClick('7')">7</button>
+        <button id="btn" onclick="numberClick('8')">8</button>
+        <button id="btn" onclick="numberClick('9')">9</button>
+        <button id="btn" onclick="clearDisplay()">C</button>
+        <button id="btn" onclick="numberClick('4')">4</button>
+        <button id="btn" onclick="numberClick('5')">5</button>
+        <button id="btn" onclick="numberClick('6')">6</button>
+        <button id="btn" onclick="operatorClick('+')">+</button>
+        <button id="btn" onclick="numberClick('1')">1</button>
+        <button id="btn" onclick="numberClick('2')">2</button>
+        <button id="btn" onclick="numberClick('3')">3</button>
+        <button id="btn" onclick="numberClick('.')">.</button>
+        <button id="btn" onclick="numberClick('0')">0</button>
+        <button id="btn" onclick="calculate()">=</button>
+        <button id="btn" onclick="operatorClick('-')">-</button>
+        <button id="btn" onclick="operatorClick('*')">*</button>
+        <button id="btn" onclick="operatorClick('/')">/</button>
+    </div>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+.calculator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 220px;
+    margin: 0 auto;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+    grid-template-rows: repeat(5, 50px);
+    gap: 10px;
+    width: auto;
+    height: auto;
+    justify-content: center;
+}
+
+.btn {
+    border-radius: 5px;
+    box-shadow: 0 2px #1a1a1a;
+    transition: background 0.2s;
+}
+
+#btn:active {
+    background-color: #388e3c;
+}
