@@ -8,28 +8,38 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div>
-        <h1>Calculator</h1>
-        <div id="display">0</div>
+    <div class="calculator">
+        <div class="display-container">
+            <div id="display">0</div>
+        </div>
+        <div id="buttons">
+            <button class="gray-btn" onclick="clearDisplay()">AC</button>
+            <button class="gray-btn" onclick="toggleSign()">+/-</button>
+            <button class="gray-btn" onclick="percentOperation()">%</button>
+            <button class="orange-btn" onclick="operatorClick('/')">÷</button>
+            
+            <button class="dark-btn" onclick="numberClick('7')">7</button>
+            <button class="dark-btn" onclick="numberClick('8')">8</button>
+            <button class="dark-btn" onclick="numberClick('9')">9</button>
+            <button class="orange-btn" onclick="operatorClick('*')">*</button>
+            
+            <button class="dark-btn" onclick="numberClick('4')">4</button>
+            <button class="dark-btn" onclick="numberClick('5')">5</button>
+            <button class="dark-btn" onclick="numberClick('6')">6</button>
+            <button class="orange-btn" onclick="operatorClick('-')">−</button>
+            
+            <button class="dark-btn" onclick="numberClick('1')">1</button>
+            <button class="dark-btn" onclick="numberClick('2')">2</button>
+            <button class="dark-btn" onclick="numberClick('3')">3</button>
+            <button class="orange-btn" onclick="operatorClick('+')">+</button>
+            
+            <button class="dark-btn calculator-icon">
+                <span class="calculator-icon-symbol">⌘</span>
+            </button>
+            <button class="dark-btn" onclick="numberClick('0')">0</button>
+            <button class="dark-btn" onclick="numberClick('.')">.</button>
+            <button class="orange-btn" onclick="calculate()">=</button>
+        </div>
     </div>
-    <div id="buttons">
-        <button id="btn" onclick="numberClick('7')">7</button>
-        <button id="btn" onclick="numberClick('8')">8</button>
-        <button id="btn" onclick="numberClick('9')">9</button>
-        <button id="btn" onclick="clearDisplay()">C</button>
-        <button id="btn" onclick="numberClick('4')">4</button>
-        <button id="btn" onclick="numberClick('5')">5</button>
-        <button id="btn" onclick="numberClick('6')">6</button>
-        <button id="btn" onclick="operatorClick('+')">+</button>
-        <button id="btn" onclick="numberClick('1')">1</button>
-        <button id="btn" onclick="numberClick('2')">2</button>
-        <button id="btn" onclick="numberClick('3')">3</button>
-        <button id="btn" onclick="numberClick('.')">.</button>
-        <button id="btn" onclick="numberClick('0')">0</button>
-        <button id="btn" onclick="calculate()">=</button>
-        <button id="btn" onclick="operatorClick('-')">-</button>
-        <button id="btn" onclick="operatorClick('*')">*</button>
-        <button id="btn" onclick="operatorClick('/')">/</button>
-    </div>
-    </body>
+</body>
 </html>
