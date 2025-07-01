@@ -1,68 +1,68 @@
 "use strict";
 
-let num1 = null;
+let operand1 = null;
 let operator = null;
-let num2 = null;
+let operand2 = null;
 const display = document.getElementById("display");
 
 function numberClick(number) {
-    if (num1 === null && num2 === null) {
+    if (operand1 === null && operand2 === null) {
         if (number === "0") {
             // Do nothing if the first number is 0 and no operator is selected
             return;
         } else if (number === ".") {
             // If the first number is not set, start with 0.
-            num1 = "0.";
-            updateDisplay(num1);
+            operand1 = "0.";
+            updateDisplay(operand1);
             return;
         }
     }
     if (operator === null) {
-        if (num1 === null) {
-            num1 = number;
+        if (operand1 === null) {
+            operand1 = number;
         } else {
-            if (num1.length >= 8) {
+            if (operand1.length >= 8) {
                 // Limit the length of the number to 10 digits
                 return;
             } else {
-                num1 += number;
+                operand1 += number;
             }
         }
-        updateDisplay(num1);
+        updateDisplay(operand1);
         return;
     } else {
-        if (num2 === null) {
-            num2 = number;
+        if (operand2 === null) {
+            operand2 = number;
         } else {
-            if (num2.length >= 8) {
+            if (operand2.length >= 8) {
                 // Limit the length of the number to 10 digits
                 return;
             } else {
-                num2 += number;
+                operand2 += number;
             }
         }
-        updateDisplay(num2);
+        updateDisplay(operand2);
         return;
     }
 }
 
 function clearDisplay() {
     display.innerText = "0";
-    num1 = null;
-    num2 = null;
+    operand1 = null;
+    operand2 = null;
     operator = null;
 }
 
 function operatorClick(operator_clicked) {
-    if (num1 === null) {
+    if (operand1 === null) {
         return;
     } 
-    if (num2 != null) {
+    if (operand2 != null) {
         res = calculate()
         
         display.innerText = res
-        num1 = res
-        num2 = null
+        operand1 = res
+        operand2 = null
         operator = operator_clicked
         return;
     } else {
