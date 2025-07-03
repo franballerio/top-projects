@@ -1,6 +1,10 @@
 "use strict"
 
-let library = [];
+import React, { useState, useEffect } from 'react';
+import './books.css';
+
+const Books = () => {
+    library = [];
 
 function Book(id, title, author, category) {
     this.id = id;
@@ -117,3 +121,24 @@ function attachFormListener() {
         showLibrary(); 
     });
 }
+return (
+    <body>
+        <div class="container">
+            <div class="commands-column">
+                <button>home</button>
+                <button onclick="showLibrary()">library</button>
+                <button onclick="newBook()">new book</button>
+                <button>edit book</button>
+                <button>delete book</button>
+                <button>clear library</button>
+            </div>
+            <div class="library">
+
+            </div>
+        </div>
+
+    </body>)
+};
+
+export default Calculator;
+
