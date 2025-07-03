@@ -18,8 +18,13 @@ const Calculator = () => {
   const [operator, setOperator] = useState(null);
   const [waitingForSecondOperand, setWaitingForSecondOperand] = useState(false);
   // calculations history, we use an array of objects 
-  // remember to create a new array to modify history
+  // remember to create a new array to modify history 
   const [history, setHistory] = useState([])
+  // Load history from localStorage on initial render
+  // This will ensure that the history persists across page reloads
+  // and is available when the component mounts
+  // We use useEffect to run this code only once when the component mounts
+  // If there is no history in localStorage, we initialize it to an empty array
   useEffect( () => {
       let local = JSON.parse(localStorage.getItem("history"))
     setHistory(local || [])  

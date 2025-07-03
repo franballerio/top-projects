@@ -66,27 +66,41 @@ body {
 }
 
 /* Make the second button ("library") look like the active link */
-.commands-column button:nth-child(2) {
+/* This is now handled dynamically in React, but you could add a .active class in React
+   and style it like this:
+.commands-column button.active {
     background-color: var(--primary-blue);
     color: var(--text-white);
     font-weight: 600;
 }
+   For now, I'm commenting out the nth-child as it's not dynamically reflecting state.
+*/
+/* .commands-column button:nth-child(2) {
+    background-color: var(--primary-blue);
+    color: var(--text-white);
+    font-weight: 600;
+} */
 
-/* MAIN CONTENT AREA STYLING - Styling the .library div */
-.library {
+
+/* MAIN CONTENT AREA STYLING - The container for either the grid or the form */
+.content-area {
     flex: 1;
     padding: 24px 32px;
     overflow-y: auto;
-    /* Use a grid to layout the cards that JS will create */
+    /* Default styling if no specific content is active, or common to both */
+    background-color: rgb(196, 196, 196);
+}
+
+/* STYLING THE BOOK GRID (when active) */
+.library-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 24px;
     align-content: flex-start; /* Align cards to the top */
 }
 
-/* STYLING THE BOOK CARDS - Targeting divs created by books.js */
-/* This selector is broad but necessary without changing the HTML/JS */
-.library > div {
+/* STYLING THE BOOK CARDS - Targeting .book-card divs */
+.book-card { /* Changed selector from .library > div to .book-card */
     background-color: var(--bg-sidebar);
     border-radius: var(--radius);
     padding: 20px;
@@ -95,20 +109,99 @@ body {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.library > div:hover {
+.book-card:hover { /* Changed selector */
     transform: translateY(-5px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
-.library h3 {
+.book-card h3 { /* Changed selector */
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 4px;
 }
 
-.library p {
+.book-card p { /* Changed selector */
     font-size: 0.9rem;
     color: var(--text-light);
+}
+
+/* STYLING THE ADD BOOK FORM */
+#new-book-form {
+    background-color: var(--bg-sidebar);
+    padding: 32px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    max-width: 500px; /* Limit form width */
+    margin: 40px auto; /* Center the form in the content area */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.form-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column; /* Stack label and input */
+    gap: 8px;
+}
+
+.form-group label { 
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--text-dark);
+    background-color: var(--bg-main); /* Slightly different background for inputs */
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); /* Light blue focus ring */
+}
+
+#new-book-form button[type="submit"],
+#new-book-form button[type="button"] { /* Apply styles to both submit and cancel buttons */
+    background-color: var(--primary-blue);
+    color: var(--text-white);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+#new-book-form button[type="submit"]:hover,
+#new-book-form button[type="button"]:hover {
+    background-color: var(--primary-blue-dark);
+}
+
+#new-book-form button[type="button"] { /* Specific style for the cancel button */
+    background-color: var(--text-light); /* Or a neutral color */
+    margin-top: 5px;
+}
+
+#new-book-form button[type="button"]:hover {
+    background-color: #5a687a; /* Darker gray on hover */
 }
 
 /* NOTE: Since there's no <img> tag in the JS-generated cards, we cannot add book covers. */

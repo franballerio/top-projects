@@ -1,144 +1,123 @@
 "use strict"
 
 import React, { useState, useEffect } from 'react';
-import './books.css';
+import './books.css'; // Make sure this CSS is for styling the components, not global HTML
 
 const Books = () => {
-    library = [];
 
-function Book(id, title, author, category) {
-    this.id = id;
-    this.title = title;
-    this.author = author;
-    this.category = category;
-    return;
-}
+    const [library, setLibrary] = useState([]);
 
-function addBookToLibrary(title, author, category) {
-    const bookId = crypto.randomUUID();
-    
-    let book = new Book(bookId, title, author, category);
-    library.push(book);    
-    return;
-}
+    const [currentView, setCurrentView] = useState('library');
 
-function showLibrary() {
-    let libraryContainer = document.querySelector('.library');
-    console.log(libraryContainer)
-    libraryContainer.innerHTML = ''; // Clear previous grid
+    const addBook = (title, author, category) => {
+        const bookId = crypto.randomUUID(); // Good use of crypto.randomUUID()
 
-    library.forEach((book) => {
-        let card = document.createElement('div');
-        
-        console.log(card)
-        console.log(book)
+        let newBook = { // Renamed 'book' to 'newBook' to avoid confusion with parameter 'book' in showLibrary map
+            bookId: bookId,
+            title: title,
+            author: author,
+            category: category,
+        };
+        // Update the state with the new book
+        setLibrary(prevLibrary => [...prevLibrary, newBook]);
+        // After adding, show the library view
+        setCurrentView('library');
+    };
 
-        card.innerHTML = `
-            <span>
-            <h3>${book.title}</h3>
-            <p>By: ${book.author}</p>
-            <span>
-            `;
-        console.log(card)
+    // This function will handle the form submission directly within the Books component
+    const handleAddBookSubmit = (event) => {
+        event.preventDefault(); // Prevent page reload
 
-        libraryContainer.appendChild(card);
-    })
+        const title = event.target.elements['book-title'].value;
+        const author = event.target.elements['book-author'].value;
+        const category = event.target.elements['book-category'].value;
 
-}
+        addBook(title, author, category);
 
-function createLibrary() {
-    addBookToLibrary("caca","caca","caca")
-    addBookToLibrary("caca1","caca1","caca1")
-    addBookToLibrary("caca2","caca2","caca2")
-    addBookToLibrary("caca3","caca3","caca3")
+        // Optionally clear the form or reset the view
+        event.target.reset(); // Resets all form fields
+    };
 
-    addBookToLibrary("caca","caca","caca")
-    addBookToLibrary("caca1","caca1","caca1")
-    addBookToLibrary("caca2","caca2","caca2")
-    addBookToLibrary("caca3","caca3","caca3")
+    // Use useEffect to run createLibrary only once when the component mounts
+    useEffect(() => {
+        // Initialize with some dummy data
+        addBook("The Hobbit", "J.R.R. Tolkien", "Fantasy");
+        addBook("1984", "George Orwell", "Dystopian");
+        addBook("Pride and Prejudice", "Jane Austen", "Romance");
+    }, []); // Empty dependency array means this runs only once on mount
 
-    addBookToLibrary("caca","caca","caca")
-    addBookToLibrary("caca1","caca1","caca1")
-    addBookToLibrary("caca2","caca2","caca2")
-    addBookToLibrary("caca3","caca3","caca3")
-}
+    // --- JSX for rendering the various views ---
 
-createLibrary();
+    const renderLibrary = () => {
+        return (
+            <div className="library-grid"> {/* Use className instead of class */}
+                {library.length > 0 ? (
+                    library.map((book) => (
+                        <div className="book-card" key={book.bookId}> {/* key is crucial for lists in React */}
+                            <h3>{book.title}</h3>
+                            <p>By: {book.author}</p>
+                            <p>Category: {book.category}</p>
+                            {/* Add a delete button for each book, if desired */}
+                            {/* <button onClick={() => handleDeleteBook(book.bookId)}>Delete</button> */}
+                        </div>
+                    ))
+                ) : (
+                    <p>Your library is empty. Add some books!</p>
+                )}
+            </div>
+        );
+    };
 
-function newBook() {
-    let libraryContainer = document.querySelector('.library');
+    const renderAddBookForm = () => {
+        return (
+            <form id="new-book-form" onSubmit={handleAddBookSubmit}> 
+                <div className="form-title">Add a New Book</div>
 
-    // This line clears the container and replaces it with the form.
-    // The previous separate .innerHTML = '' line was redundant.
-    libraryContainer.innerHTML = `
-        <form id="new-book-form">
-            <div class="form-title">Add a New Book</div>
-            
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="book-title">TITLE</label>
-                    <input type="text" id="book-title" placeholder="The Lord of the Rings" required>
+                <div className="form-row">
+                    <div className="form-group">
+                        <label htmlFor="book-title">TITLE</label>
+                        <input type="text" id="book-title" placeholder="The Lord of the Rings" required />
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="book-author">AUTHOR</label>
-                    <input type="text" id="book-author" placeholder="J.R.R. Tolkien" required>
+                <div className="form-row">
+                    <div className="form-group">
+                        <label htmlFor="book-author">AUTHOR</label>
+                        <input type="text" id="book-author" placeholder="J.R.R. Tolkien" required />
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="book-category">CATEGORY</label>
-                    <input type="text" id="book-category" placeholder="Fantasy" required>
+                <div className="form-row">
+                    <div className="form-group">
+                        <label htmlFor="book-category">CATEGORY</label>
+                        <input type="text" id="book-category" placeholder="Fantasy" required />
+                    </div>
                 </div>
+
+                <button type="submit">Add Book to Library</button>
+                <button type="button" onClick={() => setCurrentView('library')}>Cancel</button> {/* Add a cancel button */}
+            </form>
+        );
+    };
+
+    return (
+        // Remove <body> tag here
+        <div className="container"> {/* Use className */}
+            <div className="commands-column"> {/* Use className */}
+                <button onClick={() => setCurrentView('home')}>Home</button> {/* Assuming 'home' view eventually */}
+                <button onClick={() => setCurrentView('library')}>Library</button>
+                <button onClick={() => setCurrentView('addBook')}>New Book</button> {/* Use a state setter for view change */}
+                <button>Edit Book</button>
+                <button>Delete Book</button>
+                <button onClick={() => setLibrary([])}>Clear Library</button> {/* Clears state directly */}
             </div>
-            
-            <button type="submit">Add Book to Library</button>
-        </form>
-    `;
-
-    // After creating the form, we immediately find it and listen for its submission.
-    attachFormListener();   
-}
-
-function attachFormListener() {
-    const form = document.querySelector('#new-book-form');
-    form.addEventListener('submit', function(event) {
-        // 1. Prevent the default form submission which reloads the page.
-        event.preventDefault();
-
-        // 2. Get the values from the input fields.
-        const title = document.querySelector('#book-title').value;
-        const author = document.querySelector('#book-author').value;
-        const category = document.querySelector('#book-category').value;
-
-        // 3. Call your existing function to add the book to the 'library' array.
-        addBookToLibrary(title, author, category);
-
-        // 4. Call your existing function to display the updated library.
-        showLibrary(); 
-    });
-}
-return (
-    <body>
-        <div class="container">
-            <div class="commands-column">
-                <button>home</button>
-                <button onclick="showLibrary()">library</button>
-                <button onclick="newBook()">new book</button>
-                <button>edit book</button>
-                <button>delete book</button>
-                <button>clear library</button>
-            </div>
-            <div class="library">
-
+            <div className="content-area"> {/* A div to conditionally render content */}
+                {currentView === 'library' && renderLibrary()}
+                {currentView === 'addBook' && renderAddBookForm()}
+                {/* Add other views as needed */}
             </div>
         </div>
-
-    </body>)
+    );
 };
 
-export default Calculator;
-
+export default Books;
