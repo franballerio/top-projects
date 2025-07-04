@@ -107,22 +107,40 @@ body {
     box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
     transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
+
 
 .book-card:hover { /* Changed selector */
     transform: translateY(-5px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 }
 
-.book-card h3 { /* Changed selector */
-    font-size: 1.1rem;
+.book-info {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-card h3 {
+    font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 4px;
 }
 
-.book-card p { /* Changed selector */
-    font-size: 0.9rem;
+.book-card p {
+    font-size: 1rem;
     color: var(--text-light);
+}
+
+.book-cover-image {
+    display: flex;
+    text-align: center;
+    width: 230px;
+    height: 300px;
+    margin-bottom: 20px;
 }
 
 /* STYLING THE ADD BOOK FORM */
@@ -158,6 +176,31 @@ body {
     font-weight: 500;
     color: var(--text-dark);
 }
+
+#bookImageInput {
+    display: none;
+}
+
+/* Style the label to look like a button */
+.attach-image-label {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px; /* To give it space from the button below it */
+    border: none;
+    background: #555; /* A slightly different shade to distinguish it */
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 4px; /* Matches the input fields */
+    box-sizing: border-box; /* Ensures padding doesn't affect the width */
+}
+
+.attach-image-label:hover {
+    background: #777;
+}
+
 
 .form-group input[type="text"] {
     width: 100%;
