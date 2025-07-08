@@ -1,15 +1,37 @@
-/* GLOBAL SETUP */
+/* =================================================================
+   DESIGN SYSTEM & GLOBAL SETUP (Apple/Material Inspired)
+   ================================================================= */
 :root {
-    --bg-main: #F4F7FD;
-    --bg-sidebar: #FFFFFF;
-    --primary-blue: #3B82F6;
-    --primary-blue-dark: #2563EB;
-    --text-dark: #0F172A;
-    --text-light: #64748B;
-    --text-white: #FFFFFF;
-    --border-color: #E2E8F0;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --radius: 12px;
+    /* Soft, modern color palette */
+    --color-primary: #007AFF; /* Apple's standard blue for interactive elements */
+    --color-primary-hover: #0056B3;
+    --color-background-main: #F5F5F7; /* A very light gray, common in Apple UIs */
+    --color-background-sidebar: #FFFFFF;
+    --color-background-card: #FFFFFF;
+    --color-text-primary: #1D1D1F; /* Near-black for high contrast text */
+    --color-text-secondary: #6E6E73;
+    --color-border: #DCDCDC;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+    
+    /* Typography */
+    --font-family-main: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Arial", sans-serif;
+    --font-size-base: 16px;
+    --font-size-md: 1rem; /* 16px */
+    --font-size-sm: 0.875rem; /* 14px */
+    --font-size-lg: 1.25rem; /* 20px */
+    --font-size-xl: 1.75rem; /* 28px */
+    
+    /* Spacing & Sizing */
+    --spacing-unit: 8px;
+    --sidebar-width: 240px;
+
+    /* Effects & Borders */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --shadow-subtle: 0 1px 2px 0 var(--color-shadow);
+    --shadow-medium: 0 4px 6px -1px var(--color-shadow), 0 2px 4px -1px var(--color-shadow);
+    --transition-main: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -19,86 +41,141 @@
 }
 
 body {
-    font-family: 'Inter', 'Arial', sans-serif;
-    background-color: var(--bg-main);
-    color: var(--text-dark);
-    /* A font similar to the design is imported in the previous HTML. If not available, it falls back to Arial. */
+    font-family: var(--font-family-main);
+    background-color: var(--color-background-main);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* MAIN LAYOUT - Limited to the 2-column structure */
+/* =================================================================
+   MAIN LAYOUT
+   ================================================================= */
 .container {
     display: flex;
     height: 100vh;
+    width: 100%;
+    overflow: hidden;
 }
 
-/* SIDEBAR STYLING - Styling the .commands-column */
 .commands-column {
-    flex: 0 0 260px; /* Give it a fixed width like the design */
-    background-color: var(--bg-sidebar);
-    padding: 24px;
+    flex: 0 0 var(--sidebar-width);
+    background-color: var(--color-background-sidebar);
+    padding: calc(var(--spacing-unit) * 3); /* 24px */
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    border-right: 1px solid var(--border-color);
+    gap: var(--spacing-unit); /* 8px */
+    border-right: 1px solid var(--color-border);
+    transition: var(--transition-main);
+    min-height: 100vh;
 }
 
-/* Styling the buttons to look like navigation links */
+.library-actions {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--spacing-unit);
+}
+
+
+/* =================================================================
+   ANIMATIONS
+   ================================================================= */
+
+/* Define the "fade in and slide up" animation */
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* A container for the conditional buttons. 
+  This helps us apply staggered animations to the buttons inside.
+*/
+.library-actions button, .content-area .library-grid {
+  /* Apply the animation */
+  animation: fadeInSlideUp 0.4s ease-out forwards;
+  
+  /* Start buttons as invisible before animation runs */
+  opacity: 0;
+}
+
+/* Stagger the animation for each button to create a cascade effect */
+.library-actions button:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.library-actions button:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.library-actions button:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.library-actions button:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.content-area {
+    flex: 1;
+    padding: calc(var(--spacing-unit) * 4); /* 32px */
+    overflow-y: auto;
+}
+
+/* =================================================================
+   COMMANDS SIDEBAR
+   ================================================================= */
 .commands-column button {
     width: 100%;
-    padding: 12px 16px;
-    border-radius: var(--radius);
-    text-decoration: none;
-    color: var(--text-light);
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2); /* 8px 16px */
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
     font-weight: 500;
-    font-size: 1rem;
-    font-family: 'Inter', sans-serif;
-    transition: background-color 0.2s, color 0.2s;
+    font-size: var(--font-size-sm);
+    transition: var(--transition-main);
     border: none;
     background-color: transparent;
     cursor: pointer;
-    text-align: left; /* Align text to the left like nav links */
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-unit);
 }
 
-/* Add a hover effect */
 .commands-column button:hover {
-    background-color: var(--bg-main);
-    color: var(--text-dark);
+    background-color: var(--color-background-main);
+    color: var(--color-text-primary);
 }
 
-/* Make the second button ("library") look like the active link */
-/* This is now handled dynamically in React, but you could add a .active class in React
-   and style it like this:
 .commands-column button.active {
-    background-color: var(--primary-blue);
-    color: var(--text-white);
+    background-color: var(--color-primary);
+    color: white;
     font-weight: 600;
-}
-   For now, I'm commenting out the nth-child as it's not dynamically reflecting state.
-*/
-/* .commands-column button:nth-child(2) {
-    background-color: var(--primary-blue);
-    color: var(--text-white);
-    font-weight: 600;
-} */
-
-
-/* MAIN CONTENT AREA STYLING - The container for either the grid or the form */
-.content-area {
-    flex: 1;
-    padding: 24px 32px;
-    overflow-y: auto;
-    /* Default styling if no specific content is active, or common to both */
-    background-color: rgb(196, 196, 196);
+    box-shadow: var(--shadow-subtle);
 }
 
-/* STYLING THE BOOK GRID (when active) */
+.commands-column button.clear {
+    background-color: rgb(125, 0, 0);
+    display: flex;
+    color: red;
+    width: fit-content;
+    margin-top: auto;
+}
+
+/* =================================================================
+   LIBRARY GRID & BOOK CARDS
+   ================================================================= */
 .library-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 24px;
-    align-content: flex-start; /* Align cards to the top */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: calc(var(--spacing-unit) * 3); /* 24px */
 }
 
+<<<<<<< HEAD
 /* STYLING THE ADD BOOK FORM */
 #new-book-form {
     background-color: var(--bg-sidebar);
@@ -107,100 +184,193 @@ body {
     box-shadow: var(--shadow);
     max-width: 500px; /* Limit form width */
     margin: 40px auto; /* Center the form in the content area */
+=======
+.book-card {
+    background-color: var(--color-background-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition-main);
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.book-card:hover {
+    transform: translateY(-20px);
+    box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.1);
+}
+
+.book-cover-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.book-info {
+    padding: calc(var(--spacing-unit) * 2);
+>>>>>>> 8b9f2fb4af838b18c6a855c6251ef4f68f3eb754
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.book-card h3 {
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    margin-bottom: calc(var(--spacing-unit) / 2);
+}
+
+.book-card p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+}
+
+.book-card p:last-of-type {
+    margin-top: auto;
+    padding-top: var(--spacing-unit);
+    font-style: italic;
+}
+
+
+/* =================================================================
+   ADD BOOK FORM
+   ================================================================= */
+#new-book-form {
+    background-color: var(--color-background-card);
+    padding: calc(var(--spacing-unit) * 4);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-medium);
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2.5);
 }
 
 .form-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--primary-blue);
-    margin-bottom: 10px;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-unit);
     text-align: center;
 }
 
-.form-row {
+.form-group {
     display: flex;
-    flex-direction: column; /* Stack label and input */
-    gap: 8px;
+    flex-direction: column;
+    gap: var(--spacing-unit);
 }
 
-.form-group label { 
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-dark);
+.form-group label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: calc(var(--spacing-unit) * 1.5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-md);
+    color: var(--color-text-primary);
+    background-color: var(--color-background-main);
+    transition: var(--transition-main);
+}
+
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.25);
+}
+
+.form-buttons {
+    display: flex;
+    gap: var(--spacing-unit);
+    margin-top: var(--spacing-unit);
+}
+
+#new-book-form button, .attach-image-label {
+    padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-main);
+    text-align: center;
+}
+
+.attach-image-label {
+    background-color: #E9E9EB;
+    color: var(--color-text-primary);
+}
+
+.attach-image-label:hover {
+    background-color: #DFDFE1;
 }
 
 #bookImageInput {
     display: none;
 }
 
-/* Style the label to look like a button */
-.attach-image-label {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px; /* To give it space from the button below it */
-    border: none;
-    background: #555; /* A slightly different shade to distinguish it */
-    color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-    border-radius: 4px; /* Matches the input fields */
-    box-sizing: border-box; /* Ensures padding doesn't affect the width */
+#new-book-form button[type="submit"] {
+    flex: 1;
+    background-color: var(--color-primary);
+    color: white;
 }
 
-.attach-image-label:hover {
-    background: #777;
+#new-book-form button[type="submit"]:hover {
+    background-color: var(--color-primary-hover);
+    box-shadow: var(--shadow-subtle);
 }
 
-
-.form-group input[type="text"] {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    color: var(--text-dark);
-    background-color: var(--bg-main); /* Slightly different background for inputs */
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.form-group input[type="text"]:focus {
-    outline: none;
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); /* Light blue focus ring */
-}
-
-#new-book-form button[type="submit"],
-#new-book-form button[type="button"] { /* Apply styles to both submit and cancel buttons */
-    background-color: var(--primary-blue);
-    color: var(--text-white);
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin-top: 10px;
-}
-
-#new-book-form button[type="submit"]:hover,
-#new-book-form button[type="button"]:hover {
-    background-color: var(--primary-blue-dark);
-}
-
-#new-book-form button[type="button"] { /* Specific style for the cancel button */
-    background-color: var(--text-light); /* Or a neutral color */
-    margin-top: 5px;
+#new-book-form button[type="button"] {
+    flex: 1;
+    background-color: var(--color-background-main);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
 }
 
 #new-book-form button[type="button"]:hover {
-    background-color: #5a687a; /* Darker gray on hover */
+    background-color: #E5E5E5;
 }
 
-/* NOTE: Since there's no <img> tag in the JS-generated cards, we cannot add book covers. */
+/* =================================================================
+   RESPONSIVE DESIGN
+   ================================================================= */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .commands-column {
+        flex: 0 0 auto;
+        flex-direction: row;
+        overflow-x: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--spacing-unit);
+        justify-content: center;
+    }
+    
+    .commands-column button {
+        justify-content: center;
+        padding: var(--spacing-unit);
+    }
+
+    .content-area {
+        padding: calc(var(--spacing-unit) * 2);
+    }
+    
+    .library-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: var(--spacing-unit) * 2;
+    }
+
+    .book-cover-image {
+        height: 200px;
+    }
+}

@@ -80,6 +80,21 @@ useEffect(() => {
     } else {
         // 3. If no, create the default/dummy data
         const defaultBooks = [
+            { bookId: crypto.randomUUID(), title: "To Kill a Mockingbird", author: "Harper Lee", category: "Fiction", coverImage: "/images/mockingbird.jpg" },
+            { bookId: crypto.randomUUID(), title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Fiction", coverImage: "/images/gatsby.jpg" },
+            { bookId: crypto.randomUUID(), title: "Harry Potter and the Sorcerer's Stone", author: "J.K. Rowling", category: "Fantasy", coverImage: "/images/harrypotter1.jpg" },
+            { bookId: crypto.randomUUID(), title: "The Catcher in the Rye", author: "J.D. Salinger", category: "Fiction", coverImage: "/images/catcher.jpg" },
+            { bookId: crypto.randomUUID(), title: "Lord of the Flies", author: "William Golding", category: "Fiction", coverImage: "/images/lordflies.jpg" },
+            { bookId: crypto.randomUUID(), title: "The Chronicles of Narnia", author: "C.S. Lewis", category: "Fantasy", coverImage: "/images/narnia.jpg" },
+            { bookId: crypto.randomUUID(), title: "Brave New World", author: "Aldous Huxley", category: "Dystopian", coverImage: "/images/bravenew.jpg" },
+            { bookId: crypto.randomUUID(), title: "The Kite Runner", author: "Khaled Hosseini", category: "Fiction", coverImage: "/images/kiterunner.jpg" },
+            { bookId: crypto.randomUUID(), title: "Dune", author: "Frank Herbert", category: "Science Fiction", coverImage: "/images/dune.jpg" },
+            { bookId: crypto.randomUUID(), title: "The Handmaid's Tale", author: "Margaret Atwood", category: "Dystopian", coverImage: "/images/handmaid.jpg" },
+            { bookId: crypto.randomUUID(), title: "Jane Eyre", author: "Charlotte Brontë", category: "Romance", coverImage: "/images/janeeyre.jpg" },
+            { bookId: crypto.randomUUID(), title: "The Hunger Games", author: "Suzanne Collins", category: "Dystopian", coverImage: "/images/hungergames.jpg" },
+            { bookId: crypto.randomUUID(), title: "Gone Girl", author: "Gillian Flynn", category: "Thriller", coverImage: "/images/gonegirl.jpg" },
+            { bookId: crypto.randomUUID(), title: "The Da Vinci Code", author: "Dan Brown", category: "Thriller", coverImage: "/images/davinci.jpg" },
+            { bookId: crypto.randomUUID(), title: "Crime and Punishment", author: "Fyodor Dostoevsky", category: "Fiction", coverImage: "/images/crime.jpg" },
             { bookId: crypto.randomUUID(), title: "The Hobbit", author: "J.R.R. Tolkien", category: "Fantasy", coverImage: "/images/hobbit.jpg" },
             { bookId: crypto.randomUUID(), title: "1984", author: "George Orwell", category: "Dystopian", coverImage: "/images/1984.jpg"},
             { bookId: crypto.randomUUID(), title: "Pride and Prejudice", author: "Jane Austen", category: "Romance", coverImage: "/images/prideAndPrejudice.jpg" }
@@ -146,23 +161,59 @@ useEffect(() => {
         );
     };
 
+    const renderHome = () => {
+        return (
+            <div className="home-page">
+                <div className="welcome-section">
+                    <h1>Welcome to Your Personal Library</h1>
+                    <p>Organize, track, and manage your book collection with ease.</p>
+                </div>
+                
+                <div className="stats-section">
+                    <div className="stat-card">
+                        <h3>Total Books</h3>
+                        <p className="stat-number">{library.length}</p>
+                    </div>
+                    <div className="stat-card">
+                        <h3>Categories</h3>
+                        <p className="stat-number">{[...new Set(library.map(book => book.category))].length}</p>
+                    </div>
+                </div>
+                
+                <div className="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div className="action-buttons">
+                        <button onClick={() => setCurrentView('library')} className="action-btn">
+                            View Library
+                        </button>
+                        <button onClick={() => setCurrentView('addBook')} className="action-btn">
+                            Add New Book
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="container">
             <div className="commands-column">
                 <button onClick={() => setCurrentView('home')}>Home</button>
                 <button onClick={() => setCurrentView('library')}>Library</button>
-                <button onClick={() => setCurrentView('addBook')}>New Book</button>
-                <button>Edit Book</button>
-                <button>Delete Book</button>
-                <button onClick={() => {
-                    setLibrary([]) 
-                    setClearLibrary(true)}}
-                    >Clear Library</button>
+                    {currentView === "library" ? (
+                        <div className='library-actions'>
+                            <button onClick={() => setCurrentView('addBook')}>New Book</button>
+                            <button>Filter </button>
+                            <button className="clear" onClick={() => { setLibrary([])
+                                setClearLibrary(true)}}>Clear Library</button>
+                        </div> ) :
+                        ("")}
+
             </div>
             <div className="content-area">
+                {currentView === 'home' && renderHome()}
                 {currentView === 'library' && renderLibrary()}
                 {currentView === 'addBook' && renderAddBookForm()}
-                {/* Add other views as needed */}
             </div>
         </div>
     );
