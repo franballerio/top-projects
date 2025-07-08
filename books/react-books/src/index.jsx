@@ -1,6 +1,5 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Books from './books.js'; // Adjust the path if needed
+import Books from './main.js'; // Adjust the path if needed
 
 function App() {
   return (

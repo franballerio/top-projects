@@ -1,5 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import './books.css';
+import Book from './Classes/Book';
+import BookCard from './components/molecules/bookCards';
 
 const Books = () => {
 
@@ -8,7 +10,7 @@ const Books = () => {
     const [bookImage, setBookImage] = useState(null);
     const [clearLibrary, setClearLibrary] = useState(false);
 
-    const addBook = (title, author, category, imageCover) => {
+    const addBook = (title, author, category, imageCover, amountPages) => {
 
         if (typeof imageCover == "object") {
             let reader = new FileReader();
@@ -16,14 +18,12 @@ const Books = () => {
             reader.onload = (event) => {
                 const imageUrl = event.target.result;
 
-                let newBook = {
-                    bookId: crypto.randomUUID(), // creates a unique id
-                    //dateAdded: date.time(),
-                    title: title,
-                    author: author,
-                    category: category,
-                    coverImage: imageUrl
-                };
+                let newBook = new Book(
+                    title, 
+                    author, 
+                    category, 
+                    imageUrl, 
+                    amountPages)
                 
                 const existingBooks = JSON.parse(localStorage.getItem('library')) || [];
                 const updatedBooks = [...existingBooks, newBook];
@@ -35,14 +35,12 @@ const Books = () => {
             reader.readAsDataURL(imageCover);
             
         } else {
-            let newBook = {
-                bookId: crypto.randomUUID(), // creates a unique id
-                //dateAdded: date.time(),
-                title: title,
-                author: author,
-                category: category,
-                coverImage: imageCover 
-            };
+                let newBook = new Book(
+                    title, 
+                    author, 
+                    category, 
+                    imageCover, 
+                    amountPages)
             
             const existingBooks = JSON.parse(localStorage.getItem('library')) || [];
             const updatedBooks = [...existingBooks, newBook];
@@ -100,21 +98,12 @@ useEffect(() => {
             <div className="library-grid">
                 {library.length > 0 ? (
                     library.map((book) => (
-                        <div className="book-card" key={book.bookId} /*onClick={showBookPreview(book)}*/> {/* key is crucial for lists in React */}
-                            <img src={book.coverImage} alt={`Cover for ${book.title}`} className='book-cover-image'/>
-                            <div className='book-info'>
-                                <h3>{book.title}</h3>
-                                <p>By: {book.author}</p>
-                                <p>Category: {book.category}</p>
-                                {/* Add a delete button for each book, if desired */}
-                                {/* <button onClick={() => handleDeleteBook(book.bookId)}>Delete</button> */}                                
-                            </div>
-                        </div>
+                        <BookCard key={book.id} book={book}></BookCard>
                     ))
                 ) : (
                     <p>Your library is empty. Add some books!</p>
                 )}
-            </div>
+            </div>            
         );
     };
 
