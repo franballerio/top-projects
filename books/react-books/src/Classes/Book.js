@@ -1,6 +1,6 @@
 export default class Book {
     constructor (title, author, category, coverImage, amountPages) {
-        this.bookId = crypto.randomUUID(); // creates a unique id
+        this.id = crypto.randomUUID(); // creates a unique id
         this.dateAdded = Date();
         this.title = title;
         this.author = author;

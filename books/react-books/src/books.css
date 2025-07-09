@@ -5,7 +5,7 @@
     /* Soft, modern color palette */
     --color-primary: #007AFF; /* Apple's standard blue for interactive elements */
     --color-primary-hover: #0056B3;
-    --color-background-main: #F5F5F7; /* A very light gray, common in Apple UIs */
+    --color-background-main: #c6c6c6; /* A very light gray, common in Apple UIs */
     --color-background-sidebar: #FFFFFF;
     --color-background-card: #FFFFFF;
     --color-text-primary: #1D1D1F; /* Near-black for high contrast text */
@@ -175,7 +175,7 @@ body {
     gap: calc(var(--spacing-unit) * 3); /* 24px */
 }
 
-/* STYLING THE ADD BOOK FORM */
+STYLING THE ADD BOOK FORM
 #new-book-form {
     background-color: var(--bg-sidebar);
     padding: 32px;

@@ -78,33 +78,33 @@ useEffect(() => {
         // If yes, set the library state with them and do nothing else.
         setLibrary(savedBooks);
     } else {
-        // 3. If no, create the default/dummy data
+        // 3. If no, create the default/dummy data using the Book class
         const defaultBooks = [
-            { bookId: crypto.randomUUID(), title: "To Kill a Mockingbird", author: "Harper Lee", category: "Fiction", coverImage: "/images/mockingbird.jpg" },
-            { bookId: crypto.randomUUID(), title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Fiction", coverImage: "/images/gatsby.jpg" },
-            { bookId: crypto.randomUUID(), title: "Harry Potter and the Sorcerer's Stone", author: "J.K. Rowling", category: "Fantasy", coverImage: "/images/harrypotter1.jpg" },
-            { bookId: crypto.randomUUID(), title: "The Catcher in the Rye", author: "J.D. Salinger", category: "Fiction", coverImage: "/images/catcher.jpg" },
-            { bookId: crypto.randomUUID(), title: "Lord of the Flies", author: "William Golding", category: "Fiction", coverImage: "/images/lordflies.jpg" },
-            { bookId: crypto.randomUUID(), title: "The Chronicles of Narnia", author: "C.S. Lewis", category: "Fantasy", coverImage: "/images/narnia.jpg" },
-            { bookId: crypto.randomUUID(), title: "Brave New World", author: "Aldous Huxley", category: "Dystopian", coverImage: "/images/bravenew.jpg" },
-            { bookId: crypto.randomUUID(), title: "The Kite Runner", author: "Khaled Hosseini", category: "Fiction", coverImage: "/images/kiterunner.jpg" },
-            { bookId: crypto.randomUUID(), title: "Dune", author: "Frank Herbert", category: "Science Fiction", coverImage: "/images/dune.jpg" },
-            { bookId: crypto.randomUUID(), title: "The Handmaid's Tale", author: "Margaret Atwood", category: "Dystopian", coverImage: "/images/handmaid.jpg" },
-            { bookId: crypto.randomUUID(), title: "Jane Eyre", author: "Charlotte Brontë", category: "Romance", coverImage: "/images/janeeyre.jpg" },
-            { bookId: crypto.randomUUID(), title: "The Hunger Games", author: "Suzanne Collins", category: "Dystopian", coverImage: "/images/hungergames.jpg" },
-            { bookId: crypto.randomUUID(), title: "Gone Girl", author: "Gillian Flynn", category: "Thriller", coverImage: "/images/gonegirl.jpg" },
-            { bookId: crypto.randomUUID(), title: "The Da Vinci Code", author: "Dan Brown", category: "Thriller", coverImage: "/images/davinci.jpg" },
-            { bookId: crypto.randomUUID(), title: "Crime and Punishment", author: "Fyodor Dostoevsky", category: "Fiction", coverImage: "/images/crime.jpg" },
-            { bookId: crypto.randomUUID(), title: "The Hobbit", author: "J.R.R. Tolkien", category: "Fantasy", coverImage: "/images/hobbit.jpg" },
-            { bookId: crypto.randomUUID(), title: "1984", author: "George Orwell", category: "Dystopian", coverImage: "/images/1984.jpg"},
-            { bookId: crypto.randomUUID(), title: "Pride and Prejudice", author: "Jane Austen", category: "Romance", coverImage: "/images/prideAndPrejudice.jpg" }
+            // new Book("To Kill a Mockingbird", "Harper Lee", "Fiction", "/images/mockingbird.jpg", 281),
+            // new Book("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", "/images/gatsby.jpg", 180),
+            // new Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Fantasy", "/images/harrypotter1.jpg", 309),
+            // new Book("The Catcher in the Rye", "J.D. Salinger", "Fiction", "/images/catcher.jpg", 224),
+            // new Book("Lord of the Flies", "William Golding", "Fiction", "/images/lordflies.jpg", 182),
+            // new Book("The Chronicles of Narnia", "C.S. Lewis", "Fantasy", "/images/narnia.jpg", 767),
+            // new Book("Brave New World", "Aldous Huxley", "Dystopian", "/images/bravenew.jpg", 288),
+            // new Book("The Kite Runner", "Khaled Hosseini", "Fiction", "/images/kiterunner.jpg", 371),
+            // new Book("Dune", "Frank Herbert", "Science Fiction", "/images/dune.jpg", 412),
+            // new Book("The Handmaid's Tale", "Margaret Atwood", "Dystopian", "/images/handmaid.jpg", 311),
+            // new Book("Jane Eyre", "Charlotte Brontë", "Romance", "/images/janeeyre.jpg", 532),
+            // new Book("The Hunger Games", "Suzanne Collins", "Dystopian", "/images/hungergames.jpg", 374),
+            // new Book("Gone Girl", "Gillian Flynn", "Thriller", "/images/gonegirl.jpg", 432),
+            // new Book("The Da Vinci Code", "Dan Brown", "Thriller", "/images/davinci.jpg", 489),
+            // new Book("Crime and Punishment", "Fyodor Dostoevsky", "Fiction", "/images/crime.jpg", 671),
+            new Book("The Hobbit", "J.R.R. Tolkien", "Fantasy", "/images/hobbit.jpg", 310),
+            new Book("1984", "George Orwell", "Dystopian", "/images/1984.jpg", 328),
+            new Book("Pride and Prejudice", "Jane Austen", "Romance", "/images/prideAndPrejudice.jpg", 279)
         ];
 
         // 4. Set the state with the default books AND save them to localStorage
         setLibrary(defaultBooks);
         localStorage.setItem('library', JSON.stringify(defaultBooks));
     }
-}, []);
+}, [clearLibrary]); // Add clearLibrary to dependency array to make sure effect runs when it changes
 
 
     // jsx to use html
@@ -113,7 +113,7 @@ useEffect(() => {
             <div className="library-grid">
                 {library.length > 0 ? (
                     library.map((book) => (
-                        <BookCard key={book.id} book={book}></BookCard>
+                        <BookCard key={book.title} book={book} />
                     ))
                 ) : (
                     <p>Your library is empty. Add some books!</p>
