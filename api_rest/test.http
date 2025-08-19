@@ -1,0 +1,33 @@
+### test the first url
+GET http://localhost:3000/
+
+### test the second url
+GET http://localhost:3000/movies
+
+### test query params
+GET http://localhost:3000/movies?genre=Caca
+
+### test movies resource
+GET http://localhost:3000/movies/ca0020f4-60ac-49c4-8501-2bf189695a2c
+
+### test post a movie
+POST http://localhost:3000/movies
+Content-Type: application/json
+
+{
+  "title": "The Dark Knight",
+  "year": 2008,
+  "director": "Christopher Nolan",
+  "duration": 152,
+  "poster": "https://i.ebayimg.com/images/g/yokAAOSw8w1YARbm/s-l1200.jpg",
+  "genre": ["Action", "Crime", "Drama"],
+  "rate": 9.0
+}
+
+### actualizar pelicula
+PATCH http://localhost:3000/movies/6a360a18-c645-4b47-9a7b-2a71babbf3e0
+Content-Type: application/json
+
+{
+  "sql": "sql injection" 
+}
