@@ -1,3 +1,6 @@
+// this is a schema file for validating movie data using Zod
+// It defines the structure and validation rules for movie objects
+
 import * as z from 'zod';
 
 // {

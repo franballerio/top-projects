@@ -5,10 +5,10 @@ GET http://localhost:3000/
 GET http://localhost:3000/movies
 
 ### test query params
-GET http://localhost:3000/movies?genre=Caca
+GET http://localhost:3000/movies?genre=Action
 
 ### test movies resource
-GET http://localhost:3000/movies/ca0020f4-60ac-49c4-8501-2bf189695a2c
+GET http://localhost:3000/movies/6f004393-56f6-4a29-8449-386ba9bbd929
 
 ### test post a movie
 POST http://localhost:3000/movies
@@ -31,3 +31,6 @@ Content-Type: application/json
 {
   "sql": "sql injection" 
 }
+
+### delete a movie
+DELETE http://localhost:3000/movies/6f004393-56f6-4a29-8449-386ba9bbd929
