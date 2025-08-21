@@ -44,7 +44,7 @@ export class MovieModel {
     static async delete ({ id }) {
         const movieIndex = movies.findIndex(m => m.id === id);
         if (movieIndex < 0) {
-            throw new Error(`Movie with ID ${id} not found`);
+            return { message: `Movie with ${id} not found` };
         }
         movies.splice(movieIndex, 1);
         return { message: `Movie with ID ${id} deleted successfully` };

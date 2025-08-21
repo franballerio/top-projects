@@ -7,8 +7,8 @@ GET http://localhost:3000/movies
 ### test query params
 GET http://localhost:3000/movies?genre=Action
 
-### test movies resource
-GET http://localhost:3000/movies/6f004393-56f6-4a29-8449-386ba9bbd929
+### test movie resource
+GET http://localhost:3000/movies/a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d
 
 ### test post a movie
 POST http://localhost:3000/movies
@@ -33,4 +33,4 @@ Content-Type: application/json
 }
 
 ### delete a movie
-DELETE http://localhost:3000/movies/6f004393-56f6-4a29-8449-386ba9bbd929
+DELETE http://localhost:3000/movies/819923f6-e8bf-4ec4-8b12-2c16cd1f48cd

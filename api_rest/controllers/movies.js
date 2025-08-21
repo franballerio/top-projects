@@ -1,8 +1,7 @@
 // abstract class for movie controller
 // it handles the logic for the movie routes
 // it uses the MovieModel to interact with the data
-
-import { MovieModel } from "../models/movies.js";
+import { MovieModel } from "../models/sqlMovies.js";
 import { validateMovie, validateUpdate } from '../schemas/movies.js';
 
 export class movieController {
@@ -45,8 +44,8 @@ export class movieController {
 
     static async delete (req, res) {
         const { id } = req.params;
-        await MovieModel.delete({ id });
+        const result = await MovieModel.delete({ id });
 
-        res.status(204).send(); // No Content
+        res.status(200).json(result); // No Content
     }
 }
